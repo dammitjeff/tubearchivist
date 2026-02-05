@@ -13,6 +13,7 @@ import updateAppsettingsConfig from '../api/actions/updateAppsettingsConfig';
 import loadApiToken from '../api/loader/loadApiToken';
 import InputConfig from '../components/InputConfig';
 import ToggleConfig from '../components/ToggleConfig';
+import DownloadYtdlpSettings from '../components/DownloadYtdlpSettings';
 import updateCookie from '../api/actions/updateCookie';
 import loadCookie, { CookieStateType } from '../api/loader/loadCookie';
 import deleteCookie from '../api/actions/deleteCookie';
@@ -185,13 +186,11 @@ const SettingsApplication = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchData();
   }, []);
 
   useEffect(() => {
     if (refresh) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchData();
       setRefresh(false);
     }
@@ -485,45 +484,18 @@ const SettingsApplication = () => {
                   </ul>
                 </div>
               )}
-              <div className="settings-box-wrapper">
-                <div>
-                  <p>Select download format for yt-dlp.</p>
-                </div>
-                <InputConfig
-                  type="text"
-                  name="downloads.format"
-                  value={downloadsFormat}
-                  setValue={setDownloadsFormat}
-                  oldValue={appSettingsConfig.downloads.format}
-                  updateCallback={handleUpdateConfig}
-                />
-              </div>
-              <div className="settings-box-wrapper">
-                <div>
-                  <p>Sort download formats</p>
-                </div>
-                <InputConfig
-                  type="text"
-                  name="downloads.format_sort"
-                  value={downloadsFormatSort}
-                  setValue={setDownloadsFormatSort}
-                  oldValue={appSettingsConfig.downloads.format_sort}
-                  updateCallback={handleUpdateConfig}
-                />
-              </div>
-              <div className="settings-box-wrapper">
-                <div>
-                  <p>Extractor Language</p>
-                </div>
-                <InputConfig
-                  type="text"
-                  name="downloads.extractor_lang"
-                  value={downloadsExtractorLang}
-                  setValue={setDownloadsExtractorLang}
-                  oldValue={appSettingsConfig.downloads.extractor_lang}
-                  updateCallback={handleUpdateConfig}
-                />
-              </div>
+              <DownloadYtdlpSettings
+                format={downloadsFormat}
+                formatSort={downloadsFormatSort}
+                extractorLang={downloadsExtractorLang}
+                setFormat={setDownloadsFormat}
+                setFormatSort={setDownloadsFormatSort}
+                setExtractorLang={setDownloadsExtractorLang}
+                oldFormat={appSettingsConfig.downloads.format}
+                oldFormatSort={appSettingsConfig.downloads.format_sort}
+                oldExtractorLang={appSettingsConfig.downloads.extractor_lang}
+                updateCallback={handleUpdateConfig}
+              />
               <div className="settings-box-wrapper">
                 <div>
                   <p>Embed metadata</p>
